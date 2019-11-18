@@ -4,6 +4,7 @@ import React from 'react';
 // import CounterFunction from './components/CounterFunction';
 // import LightFunction from './components/LightFunction';
 import Login from './components/LoginForm';
+import Register from './components/RegisterForm';
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
       <LightFunction /> */}
 
       <Login />
+      <Register />
     </>
   );
 }
