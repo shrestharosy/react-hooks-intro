@@ -3,16 +3,30 @@ import React, { Component } from 'react';
 class Counter extends Component {
   state = {
     count: 0,
-    isOn: false
+    isOn: false,
+    x: null,
+    y: null
   };
 
-  componentDidMount(){
-    document.title = this.state.count
+  componentDidMount() {
+    document.title = this.state.count;
+    window.addEventListener('mousemove', this.handleMouseMove);
   }
 
-  componentWillUpdate(){
-    document.title = this.state.count
+  componentDidUpdate() {
+    document.title = this.state.count;
   }
+
+  componentWillUnmount() {
+    window.removeEventListener('mousemove', this.handleMouseMove);
+  }
+
+  handleMouseMove = event => {
+    this.setState(() => ({
+      x: event.pageX,
+      y: event.pageY
+    }));
+  };
 
   incrementCount = () => {
     this.setState(prevState => ({
@@ -27,7 +41,7 @@ class Counter extends Component {
   };
 
   render() {
-    const {count, isOn} = this.state
+    const { count, isOn, x, y } = this.state;
     return (
       <div>
         <h1>Counter Class</h1>
@@ -46,7 +60,9 @@ class Counter extends Component {
           onClick={this.toggleLight}
         ></div>
 
-
+        <h1>Mouse Position</h1>
+        <p>X position : {x}</p>
+        <p>Y position : {y}</p>
       </div>
     );
   }
