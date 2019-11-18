@@ -1,10 +1,15 @@
 import React from 'react';
 
 import CounterClass from './components/CounterClass';
+import CounterFunction from './components/CounterFunction';
 
 function App() {
   return (
-    <CounterClass />
+    <React.Fragment>
+      <CounterClass />
+      <hr />
+      <CounterFunction />
+    </React.Fragment>
   );
 }
 
