@@ -6,6 +6,7 @@ export default function HackerNews() {
     const [news, setNews] = useState([]);
     const [query, setQuery] = useState('react hooks');
     const [isLoading, setIsLoading] = useState(false);
+    const [error, setError] = useState(null)
     const searchInputRef = useRef();
 
     useEffect(() => {
@@ -16,8 +17,13 @@ export default function HackerNews() {
 
     const getNews = async () => {
         setIsLoading(true);
-        const response = await axios.get(`https://hn.algolia.com/api/v1/search?query=${query}`)
-        setNews(response.data.hits);
+        try {
+            const response = await axios.get(`https://hn.algolia.com/api/v1/search?query=${query}`)
+            setNews(response.data.hits);
+        }
+        catch (error) {
+            setError(error)
+        }
         setIsLoading(false);
 
     }
@@ -54,6 +60,9 @@ export default function HackerNews() {
                             ))
                         }
                     </ul>
+            }
+            {
+                error && <div> {error.message}</div>
             }
         </>
     )
