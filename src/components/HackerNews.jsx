@@ -1,18 +1,31 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 
 export default function HackerNews() {
 
-    const [news, setNews] = useState([])
+    const [news, setNews] = useState([]);
+    const [query, setQuery] = useState('react hooks');
+    const searchInputRef = useRef();
 
     useEffect(() => {
         getNews();
-    }, [])
+    }, []);
+    // }, [query]);
+    // call useEffect on each query change
 
     const getNews = async () => {
-        const response = await axios.get('https://hn.algolia.com/api/v1/search?query=reacthooks')
+        const response = await axios.get(`https://hn.algolia.com/api/v1/search?query=${query}`)
         setNews(response.data.hits);
-        console.log(response.data.hits)
+    }
+
+    const handleSearch = (event) => {
+        event.preventDefault();
+        getNews();
+    }
+
+    const handleClearSearch = () => {
+        setQuery('');
+        searchInputRef.current.focus();
     }
 
     return (
@@ -20,6 +33,12 @@ export default function HackerNews() {
             <h1>
                 Hacker News
             </h1>
+            <form onSubmit={handleSearch}>
+                <input type="text" placeholder='Keywords...' onChange={(event) => setQuery(event.target.value)} value={query} ref={searchInputRef} />
+                <button type='submit' >Search</button>
+                <button type='button' onClick={handleClearSearch}>Clear</button>
+
+            </form>
             <ul>
                 {
                     news.map((item) => (
