@@ -6,6 +6,14 @@ class Counter extends Component {
     isOn: false
   };
 
+  componentDidMount(){
+    document.title = this.state.count
+  }
+
+  componentWillUpdate(){
+    document.title = this.state.count
+  }
+
   incrementCount = () => {
     this.setState(prevState => ({
       count: prevState.count + 1
