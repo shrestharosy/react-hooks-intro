@@ -5,6 +5,7 @@ export default function HackerNews() {
 
     const [news, setNews] = useState([]);
     const [query, setQuery] = useState('react hooks');
+    const [isLoading, setIsLoading] = useState(false);
     const searchInputRef = useRef();
 
     useEffect(() => {
@@ -14,8 +15,11 @@ export default function HackerNews() {
     // call useEffect on each query change
 
     const getNews = async () => {
+        setIsLoading(true);
         const response = await axios.get(`https://hn.algolia.com/api/v1/search?query=${query}`)
         setNews(response.data.hits);
+        setIsLoading(false);
+
     }
 
     const handleSearch = (event) => {
@@ -39,15 +43,18 @@ export default function HackerNews() {
                 <button type='button' onClick={handleClearSearch}>Clear</button>
 
             </form>
-            <ul>
-                {
-                    news.map((item) => (
-                        <li key={item.objectID}>
-                            <a href={item.url}>{item.title}</a>
-                        </li>
-                    ))
-                }
-            </ul>
+            {
+                isLoading ? 'Loading...' :
+                    <ul>
+                        {
+                            news.map((item) => (
+                                <li key={item.objectID}>
+                                    <a href={item.url}>{item.title}</a>
+                                </li>
+                            ))
+                        }
+                    </ul>
+            }
         </>
     )
 }
