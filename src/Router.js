@@ -6,6 +6,7 @@ import Register from './components/RegisterForm';
 import CounterFunction from './components/CounterFunction';
 import HackerNews from './components/HackerNews';
 import UseReducerHook from './components/UseReducerHook';
+import { Gif } from './components/MyNameJeff/Gif';
 
 const AppRouter = () => (
   <BrowserRouter>
@@ -16,6 +17,7 @@ const AppRouter = () => (
       <Route path='/register' component={Register} />
       <Route path='/hackernews' component={HackerNews} />
       <Route path='/useReducer' component={UseReducerHook} />
+      <Route path='/gif' component={Gif} />
     </Switch>
   </BrowserRouter>
 );
