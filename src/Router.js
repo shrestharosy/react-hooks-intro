@@ -5,6 +5,7 @@ import Counter from './components/CounterClass';
 import Register from './components/RegisterForm';
 import CounterFunction from './components/CounterFunction';
 import HackerNews from './components/HackerNews';
+import UseReducerHook from './components/UseReducerHook';
 
 const AppRouter = () => (
   <BrowserRouter>
@@ -14,6 +15,7 @@ const AppRouter = () => (
       <Route path='/login' component={Login} />
       <Route path='/register' component={Register} />
       <Route path='/hackernews' component={HackerNews} />
+      <Route path='/useReducer' component={UseReducerHook} />
     </Switch>
   </BrowserRouter>
 );
