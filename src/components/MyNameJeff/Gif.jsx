@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 
 import axios from '../../utils/axios'
 import { GifCard } from './GifCard';
+import { GifLoader } from './GifLoader';
+import { GifNotFound } from './GifNotFound';
 
 const inputStyle = {
     height: '30px',
@@ -25,6 +27,7 @@ export const GifsContext = React.createContext();
 export function Gif() {
     const [query, setQuery] = useState('smile');
     const [gifsList, setGifsList] = useState([]);
+    const [isLoading, setIsLoading] = useState(false);
 
     useEffect(() => {
         getGifs()
@@ -40,13 +43,16 @@ export function Gif() {
     }
 
     const getGifs = async () => {
+        setIsLoading(true);
         try {
-            const response = await axios.get(`/gifs/search?q=${query}&api_key=${process.env.REACT_APP_API_KEY}`)
-            setGifsList(response.data.data)
+            const response = await axios.get(`/gifs/search?q=${query}&api_key=${process.env.REACT_APP_API_KEY}&limit=40`)
+            setGifsList(response.data.data);
         }
         catch (error) {
-            console.log(error)
+            console.log(error);
+
         }
+        setIsLoading(false);
     }
 
     return (
@@ -58,16 +64,20 @@ export function Gif() {
             </form>
 
             {
-                gifsList.length <= 0 ? 'No gifs found' :
-                    gifsList.map((gif) => (
-                        <span key={gif.id}>
-                            <GifsContext.Provider value={gif} >
-                                <GifCard />
-                            </GifsContext.Provider>
-                        </span>
-                    ))
+                isLoading ?
 
+                    <GifLoader />
+
+                    : gifsList.length <= 0 ? <GifNotFound /> :
+                        gifsList.map((gif) => (
+                            <span key={gif.id}>
+                                <GifsContext.Provider value={gif} >
+                                    <GifCard />
+                                </GifsContext.Provider>
+                            </span>
+                        ))
             }
+
 
         </>
     )
