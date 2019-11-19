@@ -1,10 +1,15 @@
 import React, { useState, useEffect } from 'react';
+import LightFunction from './LightFunction';
 
 const initialLocationState = {
   latitude: null,
   longitude: null,
   speed: null
 };
+
+export const UserContext = React.createContext()
+
+const username = 'Rosy'
 
 const CounterFunction = () => {
   const [count, setCount] = useState(0);
@@ -90,6 +95,10 @@ const CounterFunction = () => {
       <p>Latitude : {location.latitude}</p>
       <p>Longitude : {location.longitude}</p>
       <p>Speed: {location.speed}</p>
+
+      <UserContext.Provider value={username}>
+        <LightFunction />
+      </UserContext.Provider>
     </div>
   );
 };

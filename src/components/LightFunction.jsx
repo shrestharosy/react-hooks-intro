@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
+import { UserContext } from './CounterFunction';
 
 const LightFunction = () => {
   const [isOn, setIsOn] = useState(false);
@@ -6,6 +7,8 @@ const LightFunction = () => {
   const toggleLight = () => {
     setIsOn(prevIsOn => !prevIsOn);
   };
+
+  const value = useContext(UserContext)
 
   return (
     <div>
@@ -31,6 +34,13 @@ const LightFunction = () => {
         alt='Torch Light'
         onClick={toggleLight}
       ></img> */}
+
+      {/* <UserContext.Consumer>
+        {value => <div>This is {value}</div>}
+      </UserContext.Consumer> */}
+
+      This is {value}
+
     </div>
   );
 };
