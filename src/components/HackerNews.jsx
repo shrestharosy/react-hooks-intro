@@ -13,6 +13,7 @@ export default function HackerNews() {
         getNews();
     }, []);
     // }, [query]);
+    
     // call useEffect on each query change
 
     const getNews = async () => {

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import axios from '../../utils/axios'
 import { GifCard } from './GifCard';
@@ -26,21 +26,34 @@ export function Gif() {
     const [query, setQuery] = useState('smile');
     const [gifsList, setGifsList] = useState([]);
 
+    useEffect(() => {
+        getGifs()
+    }, []);
+
     const handleQueryChange = (event) => {
         setQuery(event.target.value)
     }
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-        const response = await axios.get(`/gifs/search?q=${query}&api_key=${process.env.REACT_APP_API_KEY}`)
-        setGifsList(response.data.data)
+        getGifs();
+    }
+
+    const getGifs = async () => {
+        try {
+            const response = await axios.get(`/gifs/search?q=${query}&api_key=${process.env.REACT_APP_API_KEY}`)
+            setGifsList(response.data.data)
+        }
+        catch (error) {
+            console.log(error)
+        }
     }
 
     return (
         <>
             <h1>My Nama Gif</h1>
             <form onSubmit={handleSubmit}>
-                <input type="text" placeholder={'Search gifs here...'} name={'query'} onChange={handleQueryChange} value={query} style={inputStyle} />
+                <input type="text" placeholder={'Search gifs here...'} onChange={handleQueryChange} value={query} style={inputStyle} />
                 <button type='submit' style={buttonStyle}>Search</button>
             </form>
 
