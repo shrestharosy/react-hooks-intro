@@ -6,5 +6,3 @@ const instance = axios.create({
 })
 
 export default instance;
-
-// axios.get(`/gifs/search?q=smile&api_key=${process.env.REACT_APP_API_KEY}`)
