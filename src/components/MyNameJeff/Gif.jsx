@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 
 import axios from '../../utils/axios'
+import { GifCard } from './GifCard';
 
 const inputStyle = {
     height: '30px',
@@ -19,8 +20,9 @@ const buttonStyle = {
     color: 'white'
 }
 
-export function Gif() {
+export const GifsContext = React.createContext();
 
+export function Gif() {
     const [query, setQuery] = useState('smile');
     const [gifsList, setGifsList] = useState([]);
 
@@ -31,9 +33,7 @@ export function Gif() {
     const handleSubmit = async (event) => {
         event.preventDefault();
         const response = await axios.get(`/gifs/search?q=${query}&api_key=${process.env.REACT_APP_API_KEY}`)
-        console.log(response.data.data);
         setGifsList(response.data.data)
-
     }
 
     return (
@@ -43,6 +43,19 @@ export function Gif() {
                 <input type="text" placeholder={'Search gifs here...'} name={'query'} onChange={handleQueryChange} value={query} style={inputStyle} />
                 <button type='submit' style={buttonStyle}>Search</button>
             </form>
+
+            {
+                gifsList.length <= 0 ? 'No gifs found' :
+                    gifsList.map((gif) => (
+                        <span key={gif.id}>
+                            <GifsContext.Provider value={gif} >
+                                <GifCard />
+                            </GifsContext.Provider>
+                        </span>
+                    ))
+
+            }
+
         </>
     )
 }
