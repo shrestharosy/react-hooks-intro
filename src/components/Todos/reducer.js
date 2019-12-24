@@ -4,6 +4,14 @@ import uuidv4 from 'uuid/v4'
 export default function reducer(state, action) {
     switch (action.type) {
         case ADD_TO_DO:
+            if (!action.payload) {
+                return state;
+            }
+            // findIndex return index
+            // if the if condition matches then it returns true else returns -1 and evaluates to false
+            if (state.todos.findIndex(t => t.text === action.payload) > -1) {
+                return state;
+            }
             const newTodo = {
                 id: uuidv4(),
                 text: action.payload,
@@ -20,6 +28,14 @@ export default function reducer(state, action) {
                 currentTodo: action.payload
             }
         case UPDATE_TO_DO:
+            if (!action.payload) {
+                return state;
+            }
+            // findIndex return index
+            // if the if condition matches then it returns true else returns -1 and evaluates to false
+            if (state.todos.findIndex(t => t.text === action.payload) > -1) {
+                return state;
+            }
             const updatedTodo = { ...state.currentTodo, text: action.payload }
             const updatedTodoIndex = state.todos.findIndex(t => t.id === state.currentTodo.id)
             const updatedTodos = [
