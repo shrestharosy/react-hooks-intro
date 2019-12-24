@@ -8,6 +8,7 @@ import HackerNews from './components/HackerNews';
 import UseReducerHook from './components/UseReducerHook';
 import { Gif } from './components/MyNameJeff/Gif';
 import { LunchRoulette } from './components/LunchRoulette/LunchRoulette';
+import Todos from './components/Todos/Todos';
 
 const AppRouter = () => (
   <BrowserRouter>
@@ -20,6 +21,7 @@ const AppRouter = () => (
       <Route path='/useReducer' component={UseReducerHook} />
       <Route path='/gif' component={Gif} />
       <Route path='/lunchRoulette' component={LunchRoulette} />
+      <Route path='/todos' component={Todos} />
     </Switch>
   </BrowserRouter>
 );

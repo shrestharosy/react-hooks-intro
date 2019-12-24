@@ -1,0 +1,35 @@
+import React, { useContext } from 'react';
+import TodosContext from './context'
+import { TOGGLE_TO_DO } from '../../actions/actions';
+
+export default function TodosList() {
+    const { state, dispatch } = useContext(TodosContext)
+
+    const title = state.todos.length > 0 ? `${state.todos.length} Todos` : 'Nothing to do'
+
+    return (
+        <React.Fragment>
+
+            <h2>{title}</h2>
+            <ul>
+                {state.todos.map((todo) => (
+                    <li key={todo.id}>
+                        <span
+                            onDoubleClick={() => dispatch({ type: TOGGLE_TO_DO, payload: todo })}>
+                            {
+                                todo.complete ? <s>{todo.text}</s> : todo.text
+                            }
+                        </span>
+                        <button>
+                            <img src="https://icon.now.sh/edit/0050c5" alt="Edit icon" />
+                        </button>
+                        <button>
+                            <img src="https://icon.now.sh/delete/0050c5" alt="Edit icon" />
+                        </button>
+                    </li>
+                ))}
+            </ul>
+        </React.Fragment>
+
+    )
+}
