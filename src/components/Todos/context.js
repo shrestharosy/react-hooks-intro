@@ -12,7 +12,8 @@ const TodosContext = React.createContext(
             {
                 id: 3, text: 'Do something', complete: true
             }
-        ]
+        ],
+        currentTodo: {}
     }
 )
 
