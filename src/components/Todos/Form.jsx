@@ -10,6 +10,10 @@ export default function AddTodoForm() {
         if (currentTodo.text) {
             setTodo(currentTodo.text)
         }
+        else{
+            // if todo was deleted in middle of edit
+            setTodo("")
+        }
     }, [currentTodo.id])
 
     const handleSubmit = (event) => {
