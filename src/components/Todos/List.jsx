@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import TodosContext from './context'
-import { TOGGLE_TO_DO } from '../../actions/actions';
+import { TOGGLE_TO_DO, DELETE_TO_DO } from '../../actions/actions';
 
 export default function TodosList() {
     const { state, dispatch } = useContext(TodosContext)
@@ -23,7 +23,7 @@ export default function TodosList() {
                         <button>
                             <img src="https://icon.now.sh/edit/0050c5" alt="Edit icon" />
                         </button>
-                        <button>
+                        <button onClick={() => dispatch({ type: DELETE_TO_DO, payload: todo })}>
                             <img src="https://icon.now.sh/delete/0050c5" alt="Edit icon" />
                         </button>
                     </li>

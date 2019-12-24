@@ -1,4 +1,4 @@
-import { TOGGLE_TO_DO } from "../../actions/actions";
+import { TOGGLE_TO_DO, DELETE_TO_DO } from "../../actions/actions";
 
 export default function reducer(state, action) {
     switch (action.type) {
@@ -7,6 +7,12 @@ export default function reducer(state, action) {
             return {
                 ...state,
                 todos: toggledTodos
+            }
+        case DELETE_TO_DO:
+            const filteredTodos = state.todos.filter(t => t.id !== action.payload.id);
+            return {
+                ...state,
+                todos: filteredTodos
             }
         default:
             return state
