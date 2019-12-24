@@ -9,7 +9,6 @@ export default function TodosList() {
 
     return (
         <React.Fragment>
-
             <h2>{title}</h2>
             <ul>
                 {state.todos.map((todo) => (
