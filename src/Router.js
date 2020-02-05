@@ -9,6 +9,7 @@ import UseReducerHook from './components/UseReducerHook';
 import { Gif } from './components/MyNameJeff/Gif';
 import { LunchRoulette } from './components/LunchRoulette/LunchRoulette';
 import Todos from './components/Todos/Todos';
+import CountReducer from './components/CountReducer/CountReducer';
 
 const AppRouter = () => (
   <BrowserRouter>
@@ -22,6 +23,7 @@ const AppRouter = () => (
       <Route path='/gif' component={Gif} />
       <Route path='/lunchRoulette' component={LunchRoulette} />
       <Route path='/todos' component={Todos} />
+      <Route path='/countReducer' component={CountReducer} />
     </Switch>
   </BrowserRouter>
 );
